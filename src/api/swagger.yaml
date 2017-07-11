@@ -1,0 +1,118 @@
+---
+swagger: "2.0"
+info:
+  description: "This is a simple API"
+  version: "1.0.0"
+  title: "Simple Inventory API"
+  contact:
+    email: "you@your-company.com"
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+host: "virtserver.swaggerhub.com"
+basePath: "/getglad/interview/1.0.0"
+tags:
+- name: "admins"
+  description: "Secured Admin-only calls"
+- name: "developers"
+  description: "Operations available to regular developers"
+schemes:
+- "https"
+paths:
+  /getLimit:
+    post:
+      summary: "Get X number of records in Graph format"
+      description: "Uses Neo4J MATCH and LIMIT to get the given number of records"
+      operationId: "getLimit"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "limitCount"
+        description: "An int equal to the number of records required"
+        required: false
+        schema:
+          $ref: "#/definitions/limitCount"
+      responses:
+        200:
+          description: "query successful"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/QueryReturn"
+        400:
+          description: "invalid input, object invalid"
+        409:
+          description: "an existing item already exists"
+      x-swagger-router-controller: "Default"
+  /getDepth:
+    post:
+      summary: "Get up to 50 nodes of N depth"
+      description: "Uses Neo4J MATCH and [*] to get up to 50 records for a combo of\
+        \ links"
+      operationId: "getDepth"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "limitDepth"
+        description: "An int equal to the depth required"
+        required: false
+        schema:
+          $ref: "#/definitions/limitDepth"
+      responses:
+        200:
+          description: "query successful"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/QueryReturn"
+        400:
+          description: "invalid input, object invalid"
+        409:
+          description: "an existing item already exists"
+      x-swagger-router-controller: "Default"
+definitions:
+  QueryReturn:
+    type: "object"
+    properties:
+      nodes:
+        $ref: "#/definitions/QueryReturn_nodes"
+      links:
+        $ref: "#/definitions/QueryReturn_links"
+  limitCount:
+    type: "object"
+    properties:
+      limitCount:
+        type: "integer"
+  getDepth_limits:
+    properties:
+      limitDepth:
+        type: "integer"
+      limitCount:
+        type: "integer"
+      type1:
+        type: "string"
+      type2:
+        type: "string"
+  limitDepth:
+    type: "object"
+    properties:
+      limits:
+        $ref: "#/definitions/getDepth_limits"
+  QueryReturn_nodes:
+    properties:
+      title:
+        type: "string"
+      label:
+        type: "string"
+  QueryReturn_links:
+    properties:
+      source:
+        type: "string"
+      target:
+        type: "string"

@@ -1,0 +1,40 @@
+{
+  "name": "simple-inventory-api",
+  "version": "1.0.0",
+  "description": "This is a simple API",
+  "main": "index.js",
+  "scripts": {
+    "prestart": "npm install",
+    "start": "node ./dist/index.js",
+    "build": "tsc",
+    "watch": "tsc -w",
+    "test": "mocha"
+  },
+  "keywords": [
+    "swagger"
+  ],
+  "license": "Apache-2.0",
+  "private": true,
+  "dependencies": {
+    "async": "^2.5.0",
+    "connect": "^3.2.0",
+    "cors": "^2.8.3",
+    "faker": "^4.1.0",
+    "js-yaml": "^3.3.0",
+    "lodash": "^4.17.4",
+    "neo4j-driver": "^1.4.0-rc1",
+    "swagger-tools": "0.10.1"
+  },
+  "devDependencies": {
+    "@types/async": "^2.0.40",
+    "@types/connect": "^3.4.30",
+    "@types/cors": "^2.8.1",
+    "@types/js-yaml": "^3.5.31",
+    "@types/lodash": "^4.14.68",
+    "@types/swagger-tools": "^0.10.2",
+    "chai": "^4.0.2",
+    "mocha": "^3.4.2",
+    "tslint": "^5.5.0",
+    "typescript": "^2.4.1"
+  }
+}
